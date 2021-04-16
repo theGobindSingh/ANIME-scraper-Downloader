@@ -25,7 +25,7 @@ loc = docs+folder_name
 url_src="https://www1.gogoanime.ai/"  #Change the proxy website if not working
 
 pyname=os.path.basename(__file__)
-print("File: "+pyname)
+
 wd=os.getcwd()
 
 try:
