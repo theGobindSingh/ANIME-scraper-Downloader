@@ -116,3 +116,6 @@ for i in range(sepi,eepi+1):
     with open(os.path.join(loc,aniold+"Episode "+str(i)+".mp4"),"wb") as f:
         f.write(requests.get(url_dl).content) 
         f.close()
+
+print("\n***** THANKYOU. HAVE A NICE DAY. *****")
+time.sleep(2.5)
