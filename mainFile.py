@@ -18,7 +18,7 @@ except:
     import requests #pip install requests
     
 try:
-    import lxml
+    import lxml #pip install lxml
 except:
     print('lxml module not installed! Installing automatically.')
     os.system('python -m pip install lxml')
