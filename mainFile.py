@@ -98,7 +98,7 @@ print("Number of episodes available: "+str(noe)+"\n")
 sepi=int(1)
 eepi=int(1)
 
-if (noe==1):
+if not( int(noe) == int(1) ):
     print ("Enter number of episodes you want to download:\nThe downloads are in good quality so it may take some time, Please be patient.\nSuggestion: Don't go beyond 10 or the software may crash\n")
     print ("If you want to download just one episode, put the same episode number as Starting and Ending Episode")
 
@@ -116,6 +116,8 @@ if (noe==1):
         sys.exit()
 else:
     print ("Downloading the only episode available.:\nThe downloads are in good quality so it may take some time, Please be patient.")
+
+
 
 print("")
 
