@@ -88,20 +88,27 @@ noe = int(noe)
 
 print("Number of episodes available: "+str(noe)+"\n")
 
-print ("Enter number of episodes you want to download:\nThe downloads are in good quality so it may take some time, Please be patient.\nSuggestion: Don't go beyond 20 or the software may crash\n")
+sepi=1
+eep1=1
 
-try:
-    sepi=int(input("[+] Starting episode: "))
-except:
-    print ("\nERROR! \nExiting the program.\n")
-    time.sleep(2.5)
-    sys.exit()
-try:
-    eepi=int(input("[+] Ending episode: "))
-except:
-    print ("\nERROR! \nExiting the program.\n")
-    time.sleep(2.5)
-    sys.exit()
+if (noe==1):
+    print ("Enter number of episodes you want to download:\nThe downloads are in good quality so it may take some time, Please be patient.\nSuggestion: Don't go beyond 10 or the software may crash\n")
+    print ("If you want to download just one episode, put the same episode number as Starting and Ending Episode")
+
+    try:
+        sepi=int(input("[+] Starting episode: "))
+    except:
+        print ("\nERROR! \nExiting the program.\n")
+        time.sleep(2.5)
+        sys.exit()
+    try:
+        eepi=int(input("[+] Ending episode: "))
+    except:
+        print ("\nERROR! \nExiting the program.\n")
+        time.sleep(2.5)
+        sys.exit()
+else:
+    print ("Downloading the only episode available.:\nThe downloads are in good quality so it may take some time, Please be patient.")
 
 print("")
 
