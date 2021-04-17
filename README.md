@@ -7,7 +7,8 @@ Well, Gobind senpai is here.
 
 This is an Anime scraper which scrapers data from GOGO Anime and saves them to your computer. 
 
-It is pretty easy to use; You just have to install python correctly and you're good to go.
+It is pretty easy to use; You just have to install python (with pip) correctly and you're good to go.
+Python should be in your PATH (i.e. Python should be able to run from command prompt or terminal)
 
 
 I am still trying to make a decent GUI for it, until then please use this good old terminal style which is not that bad.
