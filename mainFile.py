@@ -99,7 +99,7 @@ sepi=int(1)
 eepi=int(1)
 
 if not( int(noe) == int(1) ):
-    print ("Enter number of episodes you want to download:\nThe downloads are in good quality so it may take some time, Please be patient.\nSuggestion: Don't go beyond 10 or the software may crash\n")
+    print ("Enter number of episodes you want to download:\nThe downloads are in good quality so it may take some time, Please be patient.\nEach episode may be up to 500mb.\nSuggestion: Don't go beyond 10 or the software may crash\n")
     print ("If you want to download just one episode, put the same episode number as Starting and Ending Episode")
 
     try:
