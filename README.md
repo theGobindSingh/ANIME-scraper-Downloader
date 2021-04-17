@@ -14,7 +14,9 @@ Copy the code, change it as per your liking (which is a lil tough for beginners 
 This app is after all, my very own Jutsu. :)
 
 If you have any issue with it, you can contact me here:
+
 Phone (Call/Whatsapp) : +91 941557316
+
 E-Mail (I'll take time to respond as I'm very lasy) : android.gobind@gmail.com
 
 Hope this helps connect you to the anime world.
