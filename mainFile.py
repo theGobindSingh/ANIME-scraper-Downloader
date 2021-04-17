@@ -11,6 +11,13 @@ except:
     import requests #pip install requests
     
 try:
+    import lxml
+except:
+    print('lxml module not installed! Installing automatically.')
+    os.system('python -m pip install lxml')
+    import lxml #pip install requests
+    
+try:
     from bs4 import BeautifulSoup #pip install BeautifulSoup4
 except:
     print('Request module not installed! Installing automatically.')
