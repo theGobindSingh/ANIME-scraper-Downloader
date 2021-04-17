@@ -4,6 +4,13 @@ import time
 import json
 
 try:
+    import pip
+except:
+    print('PIP NOT INSTALLED!!! Kindly install pip correctly and then try again')
+    time.sleep(2.5)
+    sys.exit()
+
+try:
     import requests #pip install requests
 except:
     print('Request module not installed! Installing automatically.')
