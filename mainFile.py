@@ -1,14 +1,21 @@
+import os
+import sys
+import time
+import json
+
 try:
-    import os
-    import sys
-    import time
     import requests #pip install requests
-    import json
+except:
+    print('Request module not installed! Installing automatically.')
+    os.system('python -m pip install requests')
+    import requests #pip install requests
+    
+try:
     from bs4 import BeautifulSoup #pip install BeautifulSoup4
 except:
-    print('Some modules are not installed! Installing them automatically.')
-    os.system('python -m pip install requests')
+    print('Request module not installed! Installing automatically.')
     os.system('python -m pip install BeautifulSoup4')
+    from bs4 import BeautifulSoup
 
 print("\n     ***************************     ")
 print("     ***************************     ")
