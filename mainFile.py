@@ -95,8 +95,8 @@ noe = int(noe)
 
 print("Number of episodes available: "+str(noe)+"\n")
 
-sepi=1
-eep1=1
+sepi=int(1)
+eepi=int(1)
 
 if (noe==1):
     print ("Enter number of episodes you want to download:\nThe downloads are in good quality so it may take some time, Please be patient.\nSuggestion: Don't go beyond 10 or the software may crash\n")
