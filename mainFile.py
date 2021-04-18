@@ -100,13 +100,14 @@ for i in range(0,int(len(aniold))):
 noe_link=url_src+"/category/"+anime
 noet=(BeautifulSoup(requests.get(noe_link).text,"lxml")).find("div", class_="anime_video_body").find_all("li")
 noet=noet[len(noet)-1]
-noet=noet.get_text()
+noet=str(noet.get_text())
 noe=""
-for i in range(noet.index('-')+1,len(noet)):
-    noe+=str(noet[i])
-
-noe = int(noe)
-
+if (noet.find("-")==-1):
+    noe=noet
+else:
+    for i in range(noet.index('-')+1,len(noet)):
+        noe+=str(noet[i])
+noe=str(int(noe))
 print("Number of episodes available: "+str(noe)+"\n")
 
 sepi=int(1)
