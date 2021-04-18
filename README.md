@@ -22,6 +22,6 @@ If you have any issue with it, you can contact me here:
 
 Phone (Call/Whatsapp) : +91 941557316
 
-E-Mail (I'll take time to respond as I'm very lasy) : android.gobind@gmail.com
+E-Mail (I'll take time to respond as I'm very lazy) : android.gobind@gmail.com
 
-Hope this helps connect you to the anime world.
+Hope this helps you connect to the anime world.
