@@ -1,5 +1,6 @@
 # ANIME-scraper-Downloader
 ## The App which steals from thieves.
+### Please exclude the .exe file from your antivirus otherwise it won't run. (Don't worry, it does not has a virus.)
 
 Tired of seeing ads saying "Savita, 5km away wants to chat" ?
 
