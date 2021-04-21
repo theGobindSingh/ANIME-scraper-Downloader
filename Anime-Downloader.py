@@ -170,8 +170,7 @@ for i in range(sepi,eepi+1):
                 warnings.filterwarnings("ignore")
                 for chunk in tqdm(iterable=tempp.iter_content(chunk_size=1024),desc="",total=int(tempp.headers["Content-Length"])/1024,unit="KB",unit_divisor=1024,unit_scale=1,postfix="",bar_format="{l_bar}"):
                     if chunk:
-                        #print(chunk)
-                        #f.write(tempp.content) 
+                        f.write(tempp.content) 
                         pass
             f.close()
     else:
@@ -193,5 +192,6 @@ for i in range(sepi,eepi+1):
                 f.close()
         else:
             print("Ok. Skipping episode "+str(i)+".")
-print("\n***** THANKYOU. HAVE A NICE DAY. *****\n\n")
+print("\n***** THANKYOU. HAVE A NICE DAY. *****\n")
+print("\n*************** ~GOBIND **************\n\n")
 time.sleep(2)
