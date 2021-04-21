@@ -1,6 +1,6 @@
 # ANIME-scraper-Downloader
 ## The App which steals from thieves.
-### Please exclude the .exe file from your antivirus otherwise it won't run. (Don't worry, it does not has a virus.)
+
 
 Tired of seeing ads saying "Savita, 5km away wants to chat" ?
 
@@ -11,7 +11,7 @@ This is an Anime scraper which scrapers data from GOGO Anime and saves them to y
 
 It is pretty easy to use; 
 Download the .exe file and you're good to go.
- 
+ ### Please exclude the .exe file from your antivirus otherwise it won't run. (Don't worry, it does not has a virus.)
  
 The source code is also available as a .py file :)
 
