@@ -169,7 +169,7 @@ for i in range(sepi,eepi+1):
         totitr=int(tempp.headers["Content-Length"])/chunk
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore")
-            with open("sample.pdf","wb") as f:
+            with open(os.path.join(loc,aniold+"Episode "+str(i)+".mp4"),"wb") as f:
                 for data in tqdm(iterable=iterable,desc="",total=totitr,unit="KB",unit_scale=True,bar_format="{l_bar}{bar}| [{elapsed}]",postfix="",unit_divisor=chunk):
                     f.write(data)
                 print("\rDownloaded.")
