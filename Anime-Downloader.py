@@ -202,95 +202,97 @@ def quali():
 reso=int(quali())
 
 print("\nFYI: You can watch the episodes even while it is downloading.\n")
+time.sleep(1.8)
 
 #Downloading Episodes
 if(url_src==servers[0]):
     print("\nSetting server 1 for download.")
-    tempStart=startEp
-    try:
-        for k in range(startEp,endEp+1):
-            print("\nDownloading episode "+int(k)+"...")
-            epURL=url_src+finalSelect+"-episode-"+str(k) # Episode URL
-            iFrame=BeautifulSoup(requests.get(epURL).text,"lxml").find("iframe").get("src")   # Getting iFrame source
-            headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36","x-requested-with": "XMLHttpRequest","accept": "application/json, text/javascript, */*; q=0.01","accept-encoding": "gzip","accept-language":"en-US,en;q=0.9","referer": iFrame,"sec-fetch-dest": "empty","sec-fetch-mode": "cors","sec-fetch-site": "same-origin","sec-gpc": "1","referrer": iFrame}
-            iFrameRes = requests.get(iFrame.replace("/e/","/info/")+"&skey=dcb0a59359d3f732f8b545fd2908e497", headers=headers,params={"referrer": iFrame}) # Getting m3u8 links
-            iFrameRes.encoding="gzip"
-            m3u8_Link = (json.loads(iFrameRes.text)["media"]["sources"][0]["file"]).replace("list.m3u8#.mp4","hls/")
-            def quality(resolution): #for checking preffered or best available quality
-                if (requests.get(m3u8_Link+str(resolution)+"/"+str(resolution)+".m3u8",headers=headers).status_code == 200):
-                    return resolution
+    for k in range(startEp,endEp+1):
+        print("\nDownloading episode "+str(k)+"...")
+        epURL=url_src+finalSelect+"-episode-"+str(k) # Episode URL
+        iFrame=BeautifulSoup(requests.get(epURL).text,"lxml").find("iframe").get("src")   # Getting iFrame source
+        headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36","x-requested-with": "XMLHttpRequest","accept": "application/json, text/javascript, */*; q=0.01","accept-encoding": "gzip","accept-language":"en-US,en;q=0.9","referer": iFrame,"sec-fetch-dest": "empty","sec-fetch-mode": "cors","sec-fetch-site": "same-origin","sec-gpc": "1","referrer": iFrame}
+        iFrameRes = requests.get(iFrame.replace("/e/","/info/")+"&skey=dcb0a59359d3f732f8b545fd2908e497", headers=headers,params={"referrer": iFrame}) # Getting m3u8 links
+        iFrameRes.encoding="gzip"
+        m3u8_Link = (json.loads(iFrameRes.text)["media"]["sources"][0]["file"]).replace("list.m3u8#.mp4","hls/")
+        def quality(resolution): #for checking preffered or best available quality
+            if (requests.get(m3u8_Link+str(resolution)+"/"+str(resolution)+".m3u8",headers=headers).status_code == 200):
+                return resolution
+            else:
+                if resolution==720:
+                    return quality(480)
+                elif resolution==480:
+                    return quality(360)
                 else:
-                    if resolution==720:
-                        return quality(480)
-                    elif resolution==480:
-                        return quality(360)
-                    else:
-                        print ("\nERROR! \n")
-                        return 0
-            resolution=quality(reso)
-            if resolution==0:
-                print ("\nError!\nSkipping this episode.")
-                continue
-            try:
-                m3u8_MAIN=m3u8_Link+str(resolution)+"/"+str(resolution)+".m3u8"
-                m3u8_obj = m3u8.load(m3u8_MAIN)
-                with warnings.catch_warnings():
-                    warnings.filterwarnings("ignore")
-                    with open(os.path.join(loc,final_Select+" Episode "+str(k)+".ts"),"wb") as f:
-                        for i in tqdm(m3u8_obj.segments,unit="%",unit_scale=True,bar_format="{l_bar}{bar}| [{elapsed}]",postfix=""):
-                            f.write(   requests.get(   m3u8_MAIN.replace(  str(resolution)+".m3u8",  i.uri), stream=True   ).content) 
-                        f.close()
-            except:
-                print ("\nError!\nSkipping this episode.")
-                continue
-            tempStart=k
-            print("Successfully downloaded!\n")
-    except:
-        print("\nSomething went wrong! Changing server!")
-        startEp=tempStart
-        url_src=servers[1] 
+                    print ("\nERROR! \n")
+                    return 0
+        resolution=quality(reso)
+        if resolution==0:
+            print ("\nError!\nSkipping this episode.")
+            continue
+        try:
+            m3u8_MAIN=m3u8_Link+str(resolution)+"/"+str(resolution)+".m3u8"
+            m3u8_obj = m3u8.load(m3u8_MAIN)
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore")
+                with open(os.path.join(loc,final_Select+" Episode "+str(k)+".ts"),"wb") as f:
+                    for i in tqdm(m3u8_obj.segments,unit="%",unit_scale=True,bar_format="{l_bar}{bar}| [{elapsed}]",postfix=""):
+                        f.write(   requests.get(   m3u8_MAIN.replace(  str(resolution)+".m3u8",  i.uri), stream=True   ).content) 
+                    f.close()
+        except:
+            print ("\nError!\nSkipping this episode.")
+            continue
+        print("Successfully downloaded!\n")
 
 if(url_src==servers[1]):
     print("\nSetting server 2 for download.")
-    tempStart=startEp
-    try:
-        for k in range(startEp,endEp+1):
-            print("\nDownloading episode "+str(k)+"...")
-            epURL=url_src+"watch/"+finalSelect+"/"+str(k) # Episode URL
-            iFrame1=("https:"+BeautifulSoup(requests.get(epURL).text,"lxml").find("iframe").get("src"))   # getting link for id for video window
-            id_URL= parse_qs(urlparse(iFrame1).query)['id'][0] # getting id for video window
-            url_video=url_src+"embed/"+id_URL # url for video window
-            print(url_video)
-            videoPage=str(requests.get(url_video).content) # Video Page HTML
-            # Getting m3u8 link
-            s=int(videoPage.index("\"file\": ")) + 10 # m3u8 link - start index
-            c=videoPage[s] # character on that index
-            m3u8_Link="" # final link
-            while not(c=="'"): # loop till it finds a ' character
-                m3u8_Link=m3u8_Link+videoPage[s]
-                s+=1
-                c=videoPage[s]
-            m3u8_Link=m3u8_Link.replace("\\","")
-            headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"}
-            try:
-                m3u8_obj=m3u8.load(m3u8_Link)
-                with warnings.catch_warnings():
-                    warnings.filterwarnings("ignore")
-                    with open(os.path.join(loc,final_Select+" Episode "+str(k)+".ts"),"wb") as f:
-                        for i in tqdm(m3u8_obj.segments,unit="%",unit_scale=True,bar_format="{l_bar}{bar}| [{elapsed}]",postfix=""):
-                            f.write(   requests.get(   m3u8_Link.replace(  "index.m3u8",  i.uri), headers=headers ,stream=True   ).content) 
-                        f.close()
-            except:
+    print("\nWARNING: THIS IS A VERY SLOW & UNRELIABLE SERVER !")
+    for k in range(startEp,endEp+1):
+        print("\nDownloading episode "+str(k)+"...")
+        epURL=url_src+"watch/"+finalSelect+"/"+str(k) # Episode URL
+        def connectionnn(tryNum):
+            if tryNum>=1:
+                try:
+                    iFrame1=("https:"+BeautifulSoup(requests.get(epURL).text,"lxml").find("iframe").get("src"))   # getting link for id for video window
+                    id_URL= parse_qs(urlparse(iFrame1).query)['id'][0] # getting id for video window
+                    return [iFrame1,id_URL]
+                except:
+                    return connectionnn(tryNum-1)
+            else:
                 print ("\nError!\nSkipping this episode.")
-                continue
-            tempStart=k
-            print("Successfully downloaded!\n")
-    except:
-        print("\nSomething went wrong!")
-        time.sleep(2.5)
-        sys.exit()
+                return None
+        connect=connectionnn(3)
+        if(connect==None):
+            continue
+        iFrame1=connect[0]
+        id_URL=connect[1]
+        url_video=url_src+"embed/"+id_URL # url for video window
+        videoPage=str(requests.get(url_video).content) # Video Page HTML
+        # Getting m3u8 link
+        s=int(videoPage.index("\"file\": ")) + 10 # m3u8 link - start index
+        c=videoPage[s] # character on that index
+        m3u8_Link="" # final link
+        while not(c=="'"): # loop till it finds a ' character
+            m3u8_Link=m3u8_Link+videoPage[s]
+            s+=1
+            c=videoPage[s]
+        m3u8_Link=m3u8_Link.replace("\\","")
+        headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36"}
+        try:
+            m3u8_obj=m3u8.load(m3u8_Link)
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore")
+                with open(os.path.join(loc,final_Select+" Episode "+str(k)+".ts"),"wb") as f:
+                    for i in tqdm(m3u8_obj.segments,unit="%",unit_scale=True,bar_format="{l_bar}{bar}| [{elapsed}]",postfix=""):
+                        f.write(   requests.get(   m3u8_Link.replace(  "index.m3u8",  i.uri), headers=headers ,stream=True   ).content) 
+                    f.close()
+        except:
+            print ("\nError!\nSkipping this episode.")
+            continue
+        tempStart=k
+        print("Successfully downloaded!\n")
 
 
-print("\n***** THANKYOU. HAVE A NICE DAY. *****\n")
-print("\n*************** ~GOBIND **************\n\n")
+print("\n***** Arigatō Gozaimasu. Have a nice day. *****")
+print("******************** ~GOBIND ******************\n\n")
 time.sleep(2)
